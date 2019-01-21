@@ -22,7 +22,7 @@ function unFlip() {
 }
 
 
-acc.username = "1A:AA:AA:AA:AA:AA";
+acc.username = "1A:AA:AA:AA:AA:AB";
 acc.pincode = "031-45-777";
 
 acc.on('identify', function(paired, callback) {
