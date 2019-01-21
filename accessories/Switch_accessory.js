@@ -21,22 +21,9 @@ function unFlip() {
     .updateValue(state);
 }
 
-function activate() {
-  try {
-    cmd.get('sudo python ./python/buzz.py ' + duration, function(err, str, stderr) {
-      if (err)
-        console.error(err);
-      }
-    );
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-
 
 acc.username = "1A:AA:AA:AA:AA:AA";
-acc.pincode = "031-45-154";
+acc.pincode = "031-45-777";
 
 acc.on('identify', function(paired, callback) {
   console.log("Identify switch");
