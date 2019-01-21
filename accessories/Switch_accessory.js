@@ -8,7 +8,7 @@ var uuid = require('../').uuid;
 var state = false;
 var duration = 4000;
 
-var accUUID = uuid.generate('hap-nodejs:accessories:switch');
+var accUUID = uuid.generate('hap-nodejs:accessories:switch2');
 
 var acc = exports.accessory = new Accessory("Switch", accUUID);
 
