@@ -6,6 +6,11 @@ const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 
 let interval = 0;
 
+function _kill() {
+  clearInterval(interval);
+  ws281x.reset();
+}
+
 function _runRainbow() {
   var NUM_LEDS = 80,
   pixelData = new Uint32Array(NUM_LEDS);
