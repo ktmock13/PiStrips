@@ -2,7 +2,6 @@ var Accessory = require('../').Accessory;
 var Service = require('../').Service;
 var Characteristic = require('../').Characteristic;
 var uuid = require('../').uuid;
-var converter = require('hsl-to-rgb');
 
 const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 
@@ -29,7 +28,7 @@ function _setStaticColor(h, s) {
   console.log('..._setStatic called...');
   ws281x.init(NUM_LEDS);
   console.log(`hsl... ${h} ${s} ${l}`);
-  let rgb = converter(h, s, l);
+  let rgb = hslToRgb(h, s, l);
   console.log(`rgb... ${rgb[0]} ${rgb[1]} ${rgb[2]}`);
   let hex = rgb2Int(...rgb);
   console.log(`hex... ${hex}`);
