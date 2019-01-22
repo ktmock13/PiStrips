@@ -79,12 +79,7 @@ acc.addService(Service.Switch, "Switch")
   .on('set', function(value, callback) {
     console.log("The switch has been flipped");
     state = value;
-
-
-
-
-    
-
+    runLights();
     if(value) setTimeout(unFlip, 10000);
     callback();
   });
