@@ -34,7 +34,7 @@ function _setStaticColor(h, s) {
   let hex = rgb2Int(...rgb);
   console.log(`hex... ${hex}`);
   for(var i = 0; i < NUM_LEDS; i++) {
-      pixelData[i] = rgb2Int(...converter(h, s, l));
+      pixelData[i] = 0xFFFFFF;
   }
   ws281x.render(pixelData);
   ws281x.setBrightness(255);
