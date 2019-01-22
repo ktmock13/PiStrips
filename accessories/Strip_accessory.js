@@ -6,7 +6,7 @@ var uuid = require('../').uuid;
 var LightController = {
   name: "Strip Light", //name of accessory
   pincode: "031-45-707",
-  username: "FA:3C:ED:5A:1A:CC", // MAC like address used by HomeKit to differentiate accessories. 
+  username: "1A:AA:AA:AA:AA:AD", // MAC like address used by HomeKit to differentiate accessories. 
 
   power: false, //current power status
   brightness: 100, //current brightness
