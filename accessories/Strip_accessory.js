@@ -91,6 +91,14 @@ function hslToRgb(hue, sat, light) {
   b = hueToRgb(t1, t2, hue - 2) * 255;
   return [r,g,b];
 }
+function hueToRgb(t1, t2, hue) {
+  if (hue < 0) hue += 6;
+  if (hue >= 6) hue -= 6;
+  if (hue < 1) return (t2 - t1) * hue + t1;
+  else if(hue < 3) return t2;
+  else if(hue < 4) return (t2 - t1) * (4 - hue) + t1;
+  else return t1;
+}
 
 var LightController = {
   name: "Strip Light", //name of accessory
