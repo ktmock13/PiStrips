@@ -27,11 +27,11 @@ function _setStaticColor(h, s) {
   const l = .50;
   console.log('..._setStatic called...');
   ws281x.init(NUM_LEDS);
-  console(`hsl... ${h} ${s} ${l}`);
+  console.log(`hsl... ${h} ${s} ${l}`);
   let rgb = hslToRgb(h, s, l);
-  console(`rgb... ${rgb[0]} ${rgb[1]} ${rgb[2]}`);
+  console.log(`rgb... ${rgb[0]} ${rgb[1]} ${rgb[2]}`);
   let hex = rgb2Int(...rgb);
-  console(`hex... ${parseInt(str.replace(/^#/, ''), 16).toString(16)}`);
+  console.log(`hex... ${parseInt(str.replace(/^#/, ''), 16).toString(16)}`);
   for(var i = 0; i < NUM_LEDS; i++) {
       pixelData[i] = rgb2Int(...hslToRgb(h, s, l));
   }
