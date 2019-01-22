@@ -108,10 +108,6 @@ function hueToRgb(t1, t2, hue) {
   else return t1;
 }
 
-.map(function(x){             //For each array element
-  x = parseInt(x).toString(16);      //Convert to a base16 string
-  return (x.length==1) ? "0"+x : x;  //Add zero if we get only one character
-})
 
 var LightController = {
   name: "Strip Light", //name of accessory
