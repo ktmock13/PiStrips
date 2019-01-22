@@ -25,7 +25,7 @@ function _setStaticColor(h, s) {
   h = h/100;
   s = s/100;
   const l = .50;
-  console.log('..._runStatic called...');
+  console.log('..._setStatic called...');
   ws281x.init(NUM_LEDS);
 
   for(var i = 0; i < NUM_LEDS; i++) {
@@ -116,7 +116,7 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
     this.power = status;
     if(status){
-      _runStaticColor(this.hue, this.saturation);
+      _setStaticColor(this.hue, this.saturation);
     } else {
       _kill();
     }
