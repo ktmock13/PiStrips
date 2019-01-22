@@ -149,7 +149,6 @@ var LightController = {
       _setStaticColor(this.hue, this.saturation); //if the brightness is getting set but lights arent running
     }
     if(brightness == 51) {
-      _kill();
       _runRainbow();
     }
   },
