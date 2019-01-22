@@ -78,11 +78,6 @@ function rgb2Int(r, g, b) {
   return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
 
-function componentToHex(c) {
-  var hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
-}
-
 function rgbToHex(arr) {
   return "0x"+ arr.map(function(x){             //For each array element
     x = parseInt(x).toString(16);      //Convert to a base16 string
@@ -149,7 +144,7 @@ var LightController = {
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
     if(!brightness) _kill();  //if the brightness is being set to 0
-    if(brightness && !interval) {
+    if(brightness && !interval && brightness !==51) {
       _setStaticColor(this.hue, this.saturation); //if the brightness is getting set but lights arent running
     }
     if(brightness == 51) {
