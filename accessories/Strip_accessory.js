@@ -22,7 +22,6 @@ process.on('SIGINT', function () {
 });
 
 function _setStaticColor(h, s) {
-  h = h/100;
   s = s/100;
   const l = .50;
   console.log('..._setStatic called...');
