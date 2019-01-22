@@ -6,14 +6,36 @@ const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 
 let interval = 0;
 
+
+
+
 function _kill() {
   console.log('..._kill called...');
   clearInterval(interval);
   setTimeout(() => ws281x.reset(), 600); //let last renders finish
   interval = 0;
 }
+process.on('SIGINT', function () {
+  _kill()
+  process.nextTick(function () { process.exit(0); });
+});
 
-function _runStaticColor(h, s, l) {
+function _runStaticColor() {
+
+  for(var i = 0; i < NUM_LEDS; i++) {
+      pixelData[i] = 0xffcc22;
+  }
+  ws281x.render(pixelData);
+  ws281x.setBrightness(255);
+
+  // // ---- puling animation-loop
+  // var t0 = Date.now();
+  // setInterval(function () {
+  //     var dt = Date.now() - t0;
+
+  //     ws281x.setBrightness(
+  //         Math.floor(Math.sin(dt/1000) * 128 + 128));
+  // }, 1000 / 30);
 
 }
 
@@ -25,13 +47,6 @@ function _runRainbow() {
 
     ws281x.init(NUM_LEDS);
 
-    // ---- trap the SIGINT and reset before exit
-    process.on('SIGINT', function () {
-      ws281x.reset();
-      process.nextTick(function () { process.exit(0); });
-    });
-
-
     // ---- animation-loop
     var offset = 0;
     interval = setInterval(function () {
@@ -41,8 +56,6 @@ function _runRainbow() {
       offset = (offset + 1) % 256;
       ws281x.render(pixelData);
     }, 1000 / 30);
-
-    console.log('Press <ctrl>+C to exit.');
 
     // rainbow-colors, taken from http://goo.gl/Cs3H0v
     function colorwheel(pos) {
@@ -76,7 +89,7 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
     this.power = status;
     if(status){
-      _runRainbow();
+      _runStaticColor();
     } else {
       _kill();
     }
@@ -91,7 +104,7 @@ var LightController = {
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
     if(!brightness) _kill();  //if the brightness is being set to 0
-    if(brightness && !interval) _runRainbow(); //if the brightness is getting set but lights arent running
+    if(brightness && !interval) _runStaticColor(); //if the brightness is getting set but lights arent running
   },
 
   getBrightness: function() { //get brightness
