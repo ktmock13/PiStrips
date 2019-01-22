@@ -76,7 +76,7 @@ function _runRainbow() {
 function rgb2Int(r, g, b) {
   return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
 }
-function hsl2rgb (h, s, l) {
+function hslToRgb (h, s, l) {
   var r, g, b, m, c, x
   if (!isFinite(h)) h = 0
   if (!isFinite(s)) s = 0
