@@ -79,9 +79,11 @@ function componentToHex(c) {
   return hex.length == 1 ? "0" + hex : hex;
 }
 
-function rgbToHex(r, g, b) {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
+function rgbToHex(arr) {
+  return "0x"+arr.map(function(x){             //For each array element
+    x = parseInt(x).toString(16);      //Convert to a base16 string
+    return (x.length==1) ? "0"+x : x;  //Add zero if we get only one character
+}).join("")}
 
 function hslToRgb(hue, sat, light) {
   var t1, t2, r, g, b;
@@ -105,6 +107,11 @@ function hueToRgb(t1, t2, hue) {
   else if(hue < 4) return (t2 - t1) * (4 - hue) + t1;
   else return t1;
 }
+
+.map(function(x){             //For each array element
+  x = parseInt(x).toString(16);      //Convert to a base16 string
+  return (x.length==1) ? "0"+x : x;  //Add zero if we get only one character
+})
 
 var LightController = {
   name: "Strip Light", //name of accessory
