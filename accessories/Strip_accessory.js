@@ -7,8 +7,9 @@ const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 let interval = 0;
 
 function _kill() {
-  ws281x.reset();
+  console.log('..._runRainbow called...');
   clearInterval(interval);
+  setTimeout(() => ws281x.reset(), 600); //let last renders finish
   interval = 0;
 }
 
@@ -17,6 +18,7 @@ function _runStaticColor(h, s, l) {
 }
 
 function _runRainbow() {
+  console.log('..._runRainbow called...');
   var NUM_LEDS = 80,
   pixelData = new Uint32Array(NUM_LEDS);
 
