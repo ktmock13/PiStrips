@@ -153,6 +153,7 @@ var LightController = {
   setSaturation: function(saturation) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' saturation to %s", this.name, saturation);
     this.saturation = saturation;
+    _setStaticColor(this.hue, this.saturation);
   },
 
   getSaturation: function() { //get brightness
@@ -163,6 +164,7 @@ var LightController = {
   setHue: function(hue) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' hue to %s", this.name, hue);
     this.hue = hue;
+    _setStaticColor(this.hue, this.saturation);
   },
 
   getHue: function() { //get hue
