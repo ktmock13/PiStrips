@@ -154,6 +154,7 @@ var LightController = {
     }
     if(brightness == 51) {
       console.log('rainbow coming up!');
+      _kill();
       setTimeout(() => { _runRainbow()},2000) ;
     }
   },
