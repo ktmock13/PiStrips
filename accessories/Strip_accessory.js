@@ -149,7 +149,7 @@ var LightController = {
     }
     if(brightness == 51) {
       console.log('rainbow coming up!');
-      // _kill();
+      ws281x.reset();
       setTimeout(() => { _runRainbow()},2000) ;
     }
   },
