@@ -95,7 +95,7 @@ function hslToRgb(hue, sat, light) {
   r = hueToRgb(t1, t2, hue + 2) * 255;
   g = hueToRgb(t1, t2, hue) * 255;
   b = hueToRgb(t1, t2, hue - 2) * 255;
-  return [r,g,b];
+  return [Math.round(r),Math.round(g),Math.round(b)];
 }
 function hueToRgb(t1, t2, hue) {
   if (hue < 0) hue += 6;
