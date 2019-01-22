@@ -7,9 +7,13 @@ const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 let interval = 0;
 
 function _kill() {
-  clearInterval(interval);
   ws281x.reset();
+  clearInterval(interval);
   interval = 0;
+}
+
+function _runStaticColor(h, s, l) {
+
 }
 
 function _runRainbow() {
