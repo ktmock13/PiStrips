@@ -38,7 +38,7 @@ function _setStaticColor(h, s) {
   ws281x.render(pixelData);
   ws281x.setBrightness(255);
 
-  // // ---- pulsing animation-loop
+  // // ---- puling animation-loop
   // var t0 = Date.now();
   // setInterval(function () {
   //     var dt = Date.now() - t0;
@@ -74,6 +74,10 @@ function _runRainbow() {
   }
 }
 
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
 
 function rgbToHex(arr) {
   return "0x"+ arr.map(function(x){             //For each array element
@@ -123,7 +127,7 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
     this.power = status;
     if(status){
-      _runRainbow(this.hue, this.saturation);
+      _setStaticColor(this.hue, this.saturation);
     } else {
       _kill();
     }
@@ -138,7 +142,7 @@ var LightController = {
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
     if(!brightness) _kill();  //if the brightness is being set to 0
-    if(brightness && !interval) _runRainbow(this.hue, this.saturation); //if the brightness is getting set but lights arent running
+    if(brightness && !interval) _setStaticColor(this.hue, this.saturation); //if the brightness is getting set but lights arent running
   },
 
   getBrightness: function() { //get brightness
@@ -149,8 +153,7 @@ var LightController = {
   setSaturation: function(saturation) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' saturation to %s", this.name, saturation);
     this.saturation = saturation;
-    // if there is an interval then an animation is happening, dont fuck it up
-    if(!interval) _setStaticColor(this.hue, this.saturation);
+    _setStaticColor(this.hue, this.saturation);
   },
 
   getSaturation: function() { //get brightness
@@ -161,8 +164,7 @@ var LightController = {
   setHue: function(hue) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' hue to %s", this.name, hue);
     this.hue = hue;
-    // if there is an interval then an animation is happening, dont fuck it up
-    if (!interval) _setStaticColor(this.hue, this.saturation);
+    _setStaticColor(this.hue, this.saturation);
   },
 
   getHue: function() { //get hue
