@@ -7,7 +7,7 @@ const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 let interval = 0;
 
 function _kill() {
-  console.log('..._runRainbow called...');
+  console.log('..._kill called...');
   clearInterval(interval);
   setTimeout(() => ws281x.reset(), 600); //let last renders finish
   interval = 0;
@@ -90,6 +90,8 @@ var LightController = {
   setBrightness: function(brightness) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
+    if(!brightness) _kill();  //if the brightness is being set to 0
+    if(brightness && !interval) _runRainbow(); //if the brightness is getting set but lights arent running
   },
 
   getBrightness: function() { //get brightness
