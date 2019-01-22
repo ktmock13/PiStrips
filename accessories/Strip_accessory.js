@@ -84,8 +84,6 @@ var LightController = {
   setBrightness: function(brightness) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
-    ws281x.setBrightness(Math.round((brightness/100) * 255));
-
   },
 
   getBrightness: function() { //get brightness
