@@ -14,8 +14,8 @@ var accUUID = uuid.generate('hap-nodejs:accessories:switch2');
 
 var acc = exports.accessory = new Accessory("Switch", accUUID);
 
-function unFlip() {
-  console.log("Unflipping...");
+function _clearLights() {
+  console.log("Clear lights...");
   state = false;
   clearInterval(interval);
   ws281x.reset();
@@ -25,7 +25,7 @@ function unFlip() {
     .updateValue(state);
 }
 
-function runRainbow() {
+function _runRainbow() {
   var NUM_LEDS = 80,
   pixelData = new Uint32Array(NUM_LEDS);
 
@@ -82,7 +82,10 @@ acc.addService(Service.Switch, "Switch")
   .on('set', function(value, callback) {
     console.log("The switch has been flipped");
     state = value;
-    runRainbow();
-    if(value) setTimeout(unFlip, 10000);
+    _runRainbow();
+    if(value) setTimeout(_clearLights, 10000);
     callback();
   });
+
+
+
