@@ -21,12 +21,15 @@ process.on('SIGINT', function () {
   process.nextTick(function () { process.exit(0); });
 });
 
-function _runStaticColor() {
+function _setStaticColor(h, s) {
+  h = h/100;
+  s = s/100;
+  const l = .50;
   console.log('..._runStatic called...');
   ws281x.init(NUM_LEDS);
 
   for(var i = 0; i < NUM_LEDS; i++) {
-      pixelData[i] = 0xffcc22;
+      pixelData[i] = rgb2Int(...hslToRgb(h, s, l));
   }
   ws281x.render(pixelData);
   ws281x.setBrightness(255);
@@ -64,11 +67,35 @@ function _runRainbow() {
       else if (pos < 170) { pos -= 85; return rgb2Int(0, pos * 3, 255 - pos * 3); }
       else { pos -= 170; return rgb2Int(pos * 3, 255 - pos * 3, 0); }
     }
-
-    function rgb2Int(r, g, b) {
-    return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-    }
   }
+}
+
+function rgb2Int(r, g, b) {
+  return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+}
+function hslToRgb(h, s, l){
+  var r, g, b;
+
+  if(s == 0){
+      r = g = b = l; // achromatic
+  }else{
+      var hue2rgb = function hue2rgb(p, q, t){
+          if(t < 0) t += 1;
+          if(t > 1) t -= 1;
+          if(t < 1/6) return p + (q - p) * 6 * t;
+          if(t < 1/2) return q;
+          if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+      }
+
+      var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      var p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+  }
+
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
 
 var LightController = {
@@ -89,7 +116,7 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
     this.power = status;
     if(status){
-      _runStaticColor();
+      _runStaticColor(this.hue, this.saturation);
     } else {
       _kill();
     }
@@ -104,7 +131,7 @@ var LightController = {
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
     if(!brightness) _kill();  //if the brightness is being set to 0
-    if(brightness && !interval) _runStaticColor(); //if the brightness is getting set but lights arent running
+    if(brightness && !interval) _setStaticColor(this.hue, this.saturation); //if the brightness is getting set but lights arent running
   },
 
   getBrightness: function() { //get brightness
