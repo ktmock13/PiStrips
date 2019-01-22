@@ -31,7 +31,7 @@ function _setStaticColor(h, s) {
   let rgb = hslToRgb(h, s, l);
   console.log(`rgb... ${rgb[0]} ${rgb[1]} ${rgb[2]}`);
   let hex = rgb2Int(...rgb);
-  console.log(`hex... ${parseInt(hex.replace(/^#/, ''), 16).toString(16)}`);
+  console.log(`hex... ${hex}`);
   for(var i = 0; i < NUM_LEDS; i++) {
       pixelData[i] = rgb2Int(...hslToRgb(h, s, l));
   }
