@@ -30,7 +30,7 @@ function _setStaticColor(h, s) {
   console.log(`hsl... ${h} ${s} ${l}`);
   let rgb = hslToRgb(h, s, l);
   console.log(`rgb... ${rgb[0]} ${rgb[1]} ${rgb[2]}`);
-  let hex = rgbToHex(...rgb);
+  let hex = rgbToHex(rgb);
   console.log(`hex... ${hex}`);
   for(var i = 0; i < NUM_LEDS; i++) {
       pixelData[i] = 0xFFFFFF;
@@ -80,7 +80,7 @@ function componentToHex(c) {
 }
 
 function rgbToHex(arr) {
-  return "0x"+arr.map(function(x){             //For each array element
+  return "0x"+ arr.map(function(x){             //For each array element
     x = parseInt(x).toString(16);      //Convert to a base16 string
     return (x.length==1) ? "0"+x : x;  //Add zero if we get only one character
 }).join("")}
