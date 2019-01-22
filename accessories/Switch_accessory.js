@@ -18,13 +18,15 @@ function unFlip() {
   console.log("Unflipping...");
   state = false;
   clearInterval(interval);
+  ws281x.reset();
+
   acc.getService(Service.Switch)
     .getCharacteristic(Characteristic.On)
     .updateValue(state);
 }
 
-function runLights() {
-  var NUM_LEDS = parseInt(process.argv[2], 10) || 10,
+function runRainbow() {
+  var NUM_LEDS = 80,
   pixelData = new Uint32Array(NUM_LEDS);
 
   ws281x.init(NUM_LEDS);
@@ -67,6 +69,7 @@ acc.pincode = "031-45-777";
 
 acc.on('identify', function(paired, callback) {
   console.log("Identify switch");
+  ws281x.reset();
   callback();
 });
 
@@ -79,7 +82,7 @@ acc.addService(Service.Switch, "Switch")
   .on('set', function(value, callback) {
     console.log("The switch has been flipped");
     state = value;
-    runLights();
+    runRainbow();
     if(value) setTimeout(unFlip, 10000);
     callback();
   });
