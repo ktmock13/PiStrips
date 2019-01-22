@@ -88,8 +88,6 @@ var LightController = {
   setBrightness: function(brightness) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
-    if(!brightness) _kill()
-    if(brightness && !interval) _runRainbow();
   },
 
   getBrightness: function() { //get brightness
