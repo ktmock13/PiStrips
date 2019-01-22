@@ -30,7 +30,7 @@ function _setStaticColor(h, s) {
   console.log(`hsl... ${h} ${s} ${l}`);
   let rgb = hslToRgb(h, s, l);
   console.log(`rgb... ${rgb[0]} ${rgb[1]} ${rgb[2]}`);
-  let hex = rgb2Int(...rgb);
+  let hex = rgbToHex(...rgb);
   console.log(`hex... ${hex}`);
   for(var i = 0; i < NUM_LEDS; i++) {
       pixelData[i] = 0xFFFFFF;
@@ -74,9 +74,15 @@ function _runRainbow() {
   }
 }
 
-function rgb2Int(r, g, b) {
-  return ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
 function hslToRgb(hue, sat, light) {
   var t1, t2, r, g, b;
   hue = hue / 60;
