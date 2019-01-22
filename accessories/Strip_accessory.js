@@ -127,6 +127,9 @@ var LightController = {
     if(this.outputLogs) console.log("Turning the '%s' %s", this.name, status ? "on" : "off");
     this.power = status;
     if(status){
+      if(interval) {
+        _kill()
+      }
       _setStaticColor(this.hue, this.saturation);
     } else {
       _kill();
@@ -142,7 +145,13 @@ var LightController = {
     if(this.outputLogs) console.log("Setting '%s' brightness to %s", this.name, brightness);
     this.brightness = brightness;
     if(!brightness) _kill();  //if the brightness is being set to 0
-    if(brightness && !interval) _setStaticColor(this.hue, this.saturation); //if the brightness is getting set but lights arent running
+    if(brightness && !interval) {
+      _setStaticColor(this.hue, this.saturation); //if the brightness is getting set but lights arent running
+    }
+    if(brightness == 51) {
+      _kill();
+      _runRainbow();
+    }
   },
 
   getBrightness: function() { //get brightness
@@ -153,6 +162,9 @@ var LightController = {
   setSaturation: function(saturation) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' saturation to %s", this.name, saturation);
     this.saturation = saturation;
+    if (interval) {
+      _kill()
+    }
     _setStaticColor(this.hue, this.saturation);
   },
 
@@ -164,6 +176,9 @@ var LightController = {
   setHue: function(hue) { //set brightness
     if(this.outputLogs) console.log("Setting '%s' hue to %s", this.name, hue);
     this.hue = hue;
+    if (interval) {
+      _kill()
+    }
     _setStaticColor(this.hue, this.saturation);
   },
 
