@@ -6,6 +6,7 @@ const ws281x = require('../node_modules/rpi-ws281x-native/lib/ws281x-native');
 
 let interval = 0;
 var NUM_LEDS = 80;
+var pixelData = new Uint32Array(NUM_LEDS);
 
 
 
@@ -21,6 +22,7 @@ process.on('SIGINT', function () {
 });
 
 function _runStaticColor() {
+  console.log('..._runStatic called...');
 
   for(var i = 0; i < NUM_LEDS; i++) {
       pixelData[i] = 0xffcc22;
@@ -42,7 +44,6 @@ function _runStaticColor() {
 function _runRainbow() {
   if(!interval) { //check if it's already running
     console.log('..._runRainbow called...');
-    var pixelData = new Uint32Array(NUM_LEDS);
 
     ws281x.init(NUM_LEDS);
 
