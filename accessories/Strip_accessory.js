@@ -72,13 +72,6 @@ var lightAccessory = exports.accessory = new Accessory(LightController.name, lig
 lightAccessory.username = LightController.username;
 lightAccessory.pincode = LightController.pincode;
 
-// set some basic properties (these values are arbitrary and setting them is optional)
-lightAccessory
-  .getService(Service.AccessoryInformation)
-    .setCharacteristic(Characteristic.Manufacturer, LightController.manufacturer)
-    .setCharacteristic(Characteristic.Model, LightController.model)
-    .setCharacteristic(Characteristic.SerialNumber, LightController.serialNumber);
-
 // listen for the "identify" event for this Accessory
 lightAccessory.on('identify', function(paired, callback) {
   LightController.identify();
